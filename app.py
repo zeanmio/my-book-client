@@ -4,7 +4,7 @@ import requests
 app = Flask(__name__)
 
 # URL of Service 1
-BOOKS_API_URL = "http://127.0.0.1:5000/books"
+BOOKS_API_URL = "http://book-server.avarhcdea5hnggg4.norwayeast.azurecontainer.io:5000/books"
 
 @app.route("/books", methods=["GET"])
 def search_books():
