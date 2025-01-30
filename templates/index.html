@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 600px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: auto;
+        }
+        h2 {
+            text-align: center;
+        }
+        input {
+            width: calc(100% - 20px); /* 让输入框填满，但预留一点边距 */
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            border: none;
+            background-color: #d3d3d3;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        button:hover {
+            background-color: #bcbcbc;
+        }
+        .book-list {
+            margin-top: 20px;
+        }
+        .book-item {
+            padding: 15px;
+            background: #e0e0e0;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Book Search</h2>
+    <form method="post">
+        <input type="text" name="genre" placeholder="Genre">
+        <input type="text" name="author" placeholder="Author">
+        <input type="text" name="title" placeholder="Title">
+        <button type="submit">Search</button>
+    </form>
+
+    {% if error_message %}
+        <p style="color: red;">{{ error_message }}</p>
+    {% endif %}
+
+    <div class="book-list">
+        {% if books %}
+            <h3>Search Results:</h3>
+            {% for book in books %}
+                <div class="book-item">
+                    <strong>Title:</strong> {{ book.get('title', 'Unknown') }}<br>
+                    <strong>Author:</strong> {{ book.get('author', 'Unknown') }}<br>
+                    <strong>Genre:</strong> {{ book.get('genre', 'Unknown') }}
+                </div>
+            {% endfor %}
+        {% elif request.method == "POST" %}
+            <p>No books found matching your search criteria.</p>
+        {% endif %}
+    </div>
+</div>
+
+</body>
+</html>
